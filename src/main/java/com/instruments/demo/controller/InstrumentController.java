@@ -38,7 +38,7 @@ public class InstrumentController {
     public ModelAndView  addInstruments() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("create");
-        System.out.println("CREATE");
+        System.out.println("Pepe");
         logger.info("CREATE");
         return modelAndView;
     }

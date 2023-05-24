@@ -3,54 +3,65 @@ package com.instruments.demo.dao;
 import java.util.Date;
 
 public class Activos {
-    private String nameInstrument;
-    private String marketplace;
-    private String description;
-    private String ticker;
-    private int activado;
+    private String nombre;
+    private String mercado;
+    private String descripccion;
+    private String tickerbloomberg;
+    private int activo;
     private Date lastUpdate;
 
     public Activos() {
     }
 
-    public String getNameInstrument() {
-        return nameInstrument;
+    public Activos(String nombre, String mercado, String descripccion, String tickerbloomberg, int activo, Date lastUpdate) {
+        this.nombre = nombre;
+        this.mercado = mercado;
+        this.descripccion = descripccion;
+        this.tickerbloomberg = tickerbloomberg;
+        this.activo = activo;
+        this.lastUpdate = lastUpdate;
     }
 
-    public void setNameInstrument(String nameInstrument) {
-        this.nameInstrument = nameInstrument;
+
+
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getMarketplace() {
-        return marketplace;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setMarketplace(String marketplace) {
-        this.marketplace = marketplace;
+    public String getMercado() {
+        return mercado;
     }
 
-    public String getDescription() {
-        return description;
+    public void setMercado(String mercado) {
+        this.mercado = mercado;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getDescripccion() {
+        return descripccion;
     }
 
-    public String getTicker() {
-        return ticker;
+    public void setDescripccion(String descripccion) {
+        this.descripccion = descripccion;
     }
 
-    public void setTicker(String ticker) {
-        this.ticker = ticker;
+    public String getTickerbloomberg() {
+        return tickerbloomberg;
     }
 
-    public int getActivado() {
-        return activado;
+    public void setTickerbloomberg(String tickerbloomberg) {
+        this.tickerbloomberg = tickerbloomberg;
     }
 
-    public void setActivado(int activado) {
-        this.activado = activado;
+    public int getActivo() {
+        return activo;
+    }
+
+    public void setActivo(int activo) {
+        this.activo = activo;
     }
 
     public Date getLastUpdate() {
@@ -62,5 +73,15 @@ public class Activos {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Activos{" +
+                "nombre='" + nombre + '\'' +
+                ", mercado='" + mercado + '\'' +
+                ", descripccion='" + descripccion + '\'' +
+                ", tickerbloomberg='" + tickerbloomberg + '\'' +
+                ", activo=" + activo +
+                ", lastUpdate=" + lastUpdate +
+                '}';
+    }
 }
