@@ -30,7 +30,7 @@ public class InstrumentController {
     public ModelAndView getInstruments() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
-        List<Activos> instrument = instrumentService.getAllTransactions();
+        List<Activos> instrument = instrumentService.getAllInstruments();
         modelAndView.addObject("list", instrument);
         logger.info("GET ALL");
         return modelAndView;

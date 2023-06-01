@@ -13,8 +13,8 @@ public class InstrumentService {
 
     @Autowired
     private InstrumentRepository instrumentRepository;
-    public List<Activos> getAllTransactions() {
-        return instrumentRepository.getAllTransactions();
+    public List<Activos> getAllInstruments() {
+        return instrumentRepository.getAllInstruments();
     }
 
 }

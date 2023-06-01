@@ -3,6 +3,7 @@ package com.instruments.demo.dao;
 import java.util.Date;
 
 public class Activos {
+    private int id;
     private String nombre;
     private String mercado;
     private String descripccion;
@@ -13,7 +14,8 @@ public class Activos {
     public Activos() {
     }
 
-    public Activos(String nombre, String mercado, String descripccion, String tickerbloomberg, int activo, Date lastUpdate) {
+    public Activos(int id, String nombre, String mercado, String descripccion, String tickerbloomberg, int activo, Date lastUpdate) {
+        this.id = id;
         this.nombre = nombre;
         this.mercado = mercado;
         this.descripccion = descripccion;
@@ -22,7 +24,9 @@ public class Activos {
         this.lastUpdate = lastUpdate;
     }
 
+    public int getId() {return id;}
 
+    public void setId(int id) {this.id = id;}
 
     public String getNombre() {
         return nombre;
@@ -72,11 +76,11 @@ public class Activos {
         this.lastUpdate = lastUpdate;
     }
 
-
     @Override
     public String toString() {
         return "Activos{" +
-                "nombre='" + nombre + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
                 ", mercado='" + mercado + '\'' +
                 ", descripccion='" + descripccion + '\'' +
                 ", tickerbloomberg='" + tickerbloomberg + '\'' +

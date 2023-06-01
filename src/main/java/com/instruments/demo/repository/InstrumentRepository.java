@@ -16,7 +16,7 @@ public class InstrumentRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Activos> getAllTransactions() {
+    public List<Activos> getAllInstruments() {
         String sql = "SELECT * FROM ACTIVOS";
 
         return jdbcTemplate.query(
