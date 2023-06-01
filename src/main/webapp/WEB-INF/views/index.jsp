@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Esto es una prueba</title>
   </head>
   <body>
-    <h1>Esto es una prueba y estás pasando el id</h1>
+    <h1>Esto es una prueba y estás pasando el id 1</h1>
     <table>
       <thead>
         <tr>
@@ -21,16 +21,20 @@
         </tr>
       </thead>
       <tbody>
-        <c:forEach var="instrument" items="${list}">
+
+        <c:forEach items="${list}" var="item">
           <tr>
-            <td>${instrument.nombre}</td>
-            <td>${instrument.mercado}</td>
-            <td>${instrument.descripccion}</td>
-            <td>${instrument.tickerbloomberg}</td>
-            <td>${instrument.activo}</td>
-            <td>${instrument.lastUpdate}</td>
+            <td>${item.nombre}</td>
+            <td>${item.mercado}</td>
+            <td>${item.descripccion}</td>
+            <td>${item.activo}</td>
+            <td>${item.tickerbloomberg}</td>
+            <td>${item.lastUpdate}</td>
           </tr>
         </c:forEach>
+
+
+
       </tbody>
     </table>
   </body>
