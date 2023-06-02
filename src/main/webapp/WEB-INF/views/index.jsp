@@ -1,157 +1,173 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8" %> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 
-        <!DOCTYPE html>
-        <html lang="es">
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
 
-        <head>
+      th,
+      td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+      }
 
-            <style>
-                table {
-                    border-collapse: collapse;
-                    width: 100%;
-                }
+      th {
+        background-color: #f2f2f2;
+      }
 
-                th,
-                td {
-                    padding: 8px;
-                    text-align: center;
-                    border-bottom: 1px solid #ddd;
-                }
+      tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+      }
 
-                th {
-                    background-color: #f2f2f2;
-                }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
 
-                tr:hover {
-                    background-color: #f5f5f5;
-                    cursor: pointer;
-                }
+      .userContent {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        margin-bottom: 2%;
+        margin-right: 1.4%;
+      }
 
-                h1 {
-                    color: #333;
-                    text-align: center;
-                }
+      .headerContent {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 2%;
+      }
 
-                .userContent {
-                    display: flex;
-                    justify-content: right;
-                    align-items: center;
-                    margin-bottom: 2%;
-                    margin-right: 1.4%;
-                }
+      a {
+        list-style: none;
+        text-decoration: none;
+        color: #333;
+      }
 
-                .headerContent {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0 20px;
-                    margin-bottom: 2%;
-                }
+      .disabled-link {
+  pointer-events: none;
+  color: gray;
+  text-decoration: none;
+  cursor: default;
+}
+    </style>
+  </head>
 
-                a {
-                    list-style: none;
-                    text-decoration: none;
-                    color: #333;
-                }
-            </style>
+  <body>
+    <h1>Instrumentos</h1>
 
+    <div class="userContent">
+      <input type="text" placeholder="nombre usuario" name="checkUser" />
+      <input type="submit" value="Enviar" onclick="submitForm(event)" />
+    </div>
 
-        </head>
+    <div class="headerContent">
+      <button><a href="new" class="disabled-link">Nuevo</a></button>
+      <br />
+      <div class="filterContent">
+        <form action="#" method="GET">
+          <input type="text" name="search" placeholder="Buscar" />
+          <input type="submit" value="Buscar" />
+        </form>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Mercado</th>
+          <th>Descripción</th>
+          <th>Ticker Bloomberg</th>
+          <th>Activo</th>
+          <th>Última Actualización</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${list}" var="item">
+          <tr>
+            <td>${item.nombre}</td>
+            <td>${item.mercado}</td>
+            <td>${item.descripccion}</td>
+            <td>${item.activo}</td>
+            <td>${item.tickerbloomberg}</td>
+            <td>${item.lastUpdate}</td>
+            <td>
+              <a href="edit/${item.id}" class="disabled-link">Editar</a>
+              <a href="delete/${item.id}" class="disabled-link">Eliminar</a>
+            </td>
+          </tr>
+        </c:forEach>
+        <c:if test="${sessionScope.auth}">
+          <p>El usuario está autenticado y tiene rol admin.</p>
+        </c:if>
+        <c:if test="${not sessionScope.auth}">
+          <p>El usuario no está autenticado o no tiene el rol admin.</p>
+        </c:if>
 
-        <body>
-            <h1>Instrumentos</h1>
+        <script>
+          function submitForm(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
 
-            <div class="userContent">
-                    <input type="text" placeholder="nombre usuario" name="checkUser">
-                    <input type="submit" value="Enviar" onclick="submitForm(event)">
+            var user = document.getElementsByName("checkUser")[0].value;
 
-            </div>
+            var xhr = new XMLHttpRequest();
+            xhr.open(
+              "GET",
+              "/demo-0.0.1-SNAPSHOT/auth?checkUser=" + encodeURIComponent(user),
+              true
+            );
+            xhr.onreadystatechange = function () {
+              if (
+                xhr.readyState === XMLHttpRequest.DONE &&
+                xhr.status === 200
+              ) {
+                var auth = JSON.parse(xhr.responseText).auth;
+                sessionStorage.setItem("auth", auth.toString());
+                window.location.reload(); // Recargar la página para mostrar el resultado actualizado
+              }
+            };
+            xhr.send();
+          }
 
+          document.addEventListener("DOMContentLoaded", function () {
+            // Obtener el valor de auth del sessionStorage
+            var auth = sessionStorage.getItem("auth");
 
-            <div class="headerContent">
-                <button><a href="new">Nuevo</a></button>
-                <br>
-                <div class="filterContent">
-                    <form action="#" method="GET">
-                        <input type="text" name="search" placeholder="Buscar">
-                        <input type="submit" value="Buscar">
-                    </form>
+            // Obtener todos los botones de la página
+            var buttons = document.getElementsByTagName("button");
+            var links = document.getElementsByTagName("a");
 
-                </div>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Mercado</th>
-                        <th>Descripción</th>
-                        <th>Ticker Bloomberg</th>
-                        <th>Activo</th>
-                        <th>Última Actualización</th>
-                        <th></th>
+            // Verificar el valor de auth y habilitar o deshabilitar los botones en consecuencia
+            for (var i = 0; i < buttons.length; i++) {
+              if (auth === "true") {
+                buttons[i].removeAttribute("disabled");
+              } else {
+                buttons[i].setAttribute("disabled", "disabled");
+              }
+            }
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${list}" var="item">
-                        <tr>
-                            <td>${item.nombre}</td>
-                            <td>${item.mercado}</td>
-                            <td>${item.descripccion}</td>
-                            <td>${item.activo}</td>
-                            <td>${item.tickerbloomberg}</td>
-                            <td>${item.lastUpdate}</td>
-                            <td>
-                                <a href="edit/${item.id}">Editar</a>
-                                <a href="delete/${item.id}">Eliminar</a>
-                            </td>
-
-                        </tr>
-                    </c:forEach>
-                    <c:if test="${sessionScope.auth}">
-                        <p>El usuario está autenticado y tiene rol admin.</p>
-                    </c:if>
-                    <c:if test="${not sessionScope.auth}">
-                        <p>El usuario no está autenticado o no tiene el rol admin.</p>
-                    </c:if>
-
-
-                    <script>
-
-                        function onClick() {
-                            var auth = "${auth}";
-                            if (auth) {
-                                sessionStorage.setItem("auth", "true");
-                            } else {
-                                sessionStorage.setItem("auth", "false");
-                            }
-                        }
-
-                        function submitForm(event) {
-                            event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
-
-                            var user = document.getElementsByName("checkUser")[0].value;
-
-                            var baseUrl = window.location.origin;
-                            var url = baseUrl + "/demo-0.0.1-SNAPSHOT/auth?checkUser=" + encodeURIComponent(user);
-                            window.location.href = url;
-
-
-                            //var auth = sessionStorage.getItem("auth");
-                            // if (auth == "true") {
-                            //     alert("El usuario " + user + " está autenticado y tiene rol admin.");
-                            // } else {
-                            //     alert("El usuario " + user + " no está autenticado o no tiene el rol admin.");
-                            // }
-                        }
-
-
-                    </script>
-
-
-                </tbody>
-            </table>
-        </body>
-
-        </html>
+            // Verificar el valor de auth y habilitar o deshabilitar los enlaces en consecuencia
+            for (var i = 0; i < links.length; i++) {
+              if (auth === "true") {
+                links[i].classList.remove("disabled-link");
+              } else {
+                links[i].classList.add("disabled-link");
+              }
+            }
+          });
+        </script>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -32,18 +35,14 @@ public class UserController {
         return modelAndView;
     }
     @RequestMapping("/auth")
-    public ModelAndView checkRolUser(@RequestParam("checkUser") String checkUser) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
+    @ResponseBody
+    public Map<String, Object> checkRolUser(@RequestParam("checkUser") String checkUser) {
+        Map<String, Object> response = new HashMap<>();
         List<Activos> userAuth = userService.checkUserAuth(checkUser);
-        if (userAuth.isEmpty()) {
-            modelAndView.addObject("auth", true);
-            logger.info("User logged in");
-        }else {
-            modelAndView.addObject("auth", false);
-            logger.info("User not logged in");
-        }
-        return modelAndView;
+        boolean auth = !userAuth.isEmpty();
+        response.put("auth", auth);
+        return response;
     }
+
 
 }
