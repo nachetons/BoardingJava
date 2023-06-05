@@ -49,7 +49,8 @@ public class InstrumentController {
     public ModelAndView  editInstruments(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
-        modelAndView.addObject("id", id);
+        List<Activos> instrument = instrumentService.getInstrumentsById(id);
+        modelAndView.addObject("list", instrument);
         System.out.println("EDIT");
         return modelAndView;
     }

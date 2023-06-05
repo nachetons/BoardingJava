@@ -16,5 +16,5 @@ public class InstrumentService {
     public List<Activos> getAllInstruments() {
         return instrumentRepository.getAllInstruments();
     }
-
+    public List<Activos> getInstrumentsById(int id) {return instrumentRepository.getInstrumentsById(id); }
 }
