@@ -108,14 +108,27 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </td>
           </tr>
         </c:forEach>
-        <c:if test="${sessionScope.auth}">
-          <p>El usuario está autenticado y tiene rol admin.</p>
-        </c:if>
-        <c:if test="${not sessionScope.auth}">
-          <p>El usuario no está autenticado o no tiene el rol admin.</p>
-        </c:if>
+        <p id="autenticar"></p>
+
+
+
+
+
+
+
 
         <script>
+
+var auth = sessionStorage.getItem("auth");
+var autenticar = document.getElementById("autenticar");
+
+if (auth === "true") {
+    autenticar.innerHTML = "<p>El usuario está autenticado y tiene el rol admin.</p>";
+} else {
+    autenticar.innerHTML = "<p>El usuario no está autenticado o no tiene el rol admin.</p>";
+}
+
+
           function submitForm(event) {
             event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
 

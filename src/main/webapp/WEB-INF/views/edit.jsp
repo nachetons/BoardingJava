@@ -46,6 +46,16 @@
                 </c:forEach>
             </form>
 
+
+            <script>
+                var auth = sessionStorage.getItem("auth");
+
+                if (auth === "true") {
+
+                } else {
+                    window.location.href = "../";
+                }
+            </script>
         </body>
 
         </html>
