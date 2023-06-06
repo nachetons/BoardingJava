@@ -26,7 +26,7 @@ public class UserRepository {
     }
 
     public List<Activos> checkUserAuth(String checkUser) {
-        String sql = "SELECT * FROM USUARIOS WHERE NOMBRE = ? AND ROL = 'admin'";
+        String sql = "SELECT * FROM USUARIOS WHERE CODE = ? AND ROL = 'admin'";
 
         return jdbcTemplate.query(
                 sql, new BeanPropertyRowMapper<>(Activos.class), checkUser

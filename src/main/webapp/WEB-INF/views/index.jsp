@@ -6,6 +6,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="es">
   <head>
     <style>
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
       table {
         border-collapse: collapse;
         width: 100%;
@@ -34,18 +40,24 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
       .userContent {
         display: flex;
-        justify-content: right;
+        justify-content: flex-end;
         align-items: center;
+        padding: 10px 20px;
         margin-bottom: 2%;
-        margin-right: 1.4%;
       }
 
       .headerContent {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 10px 20px;
         margin-bottom: 2%;
+        background-color: #f2f2f2;
+      }
+
+      .filterContent input[type="text"],
+      .filterContent input[type="submit"] {
+        margin-right: 15px;
       }
 
       a {
@@ -55,11 +67,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       }
 
       .disabled-link {
-  pointer-events: none;
-  color: gray;
-  text-decoration: none;
-  cursor: default;
-}
+        pointer-events: none;
+        color: gray;
+        text-decoration: none;
+        cursor: default;
+      }
+
+      .auth-message {
+        text-align: center;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
 
@@ -75,10 +92,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <button><a href="new" class="disabled-link">Nuevo</a></button>
       <br />
       <div class="filterContent">
-        <form action="#" method="GET">
           <input type="text" name="search" placeholder="Buscar" />
           <input type="submit" value="Buscar" />
-        </form>
       </div>
     </div>
     <table>
@@ -108,13 +123,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </td>
           </tr>
         </c:forEach>
-        <p id="autenticar"></p>
-
-
-
-
-
-
+        <div class="auth-message">
+            <p id="autenticar"></p>
+          </div>
 
 
         <script>

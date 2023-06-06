@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Activos {
     private int id;
+    private String code;
     private String nombre;
     private String mercado;
     private String descripccion;
@@ -14,8 +15,9 @@ public class Activos {
     public Activos() {
     }
 
-    public Activos(int id, String nombre, String mercado, String descripccion, String tickerbloomberg, int activo, Date lastUpdate) {
+    public Activos(int id, String code, String nombre, String mercado, String descripccion, String tickerbloomberg, int activo, Date lastUpdate) {
         this.id = id;
+        this.code = code;
         this.nombre = nombre;
         this.mercado = mercado;
         this.descripccion = descripccion;
@@ -28,6 +30,11 @@ public class Activos {
 
     public void setId(int id) {this.id = id;}
 
+    public String getCode() {return code;}
+
+    public void setCode(String code) {this.code = code;}
+
+    
     public String getNombre() {
         return nombre;
     }
