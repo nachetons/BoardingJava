@@ -6,11 +6,9 @@ import com.instruments.demo.service.InstrumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -46,13 +44,19 @@ public class InstrumentController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView  editInstruments(@PathVariable int id) {
+    public ModelAndView getInstruments(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
         List<Activos> instrument = instrumentService.getInstrumentsById(id);
         modelAndView.addObject("list", instrument);
         System.out.println("EDIT");
         return modelAndView;
+    }
+
+
+    @PutMapping("/update/{id}")
+    public int editInstruments(@RequestBody Activos activo, @PathVariable int id) {
+        return instrumentService.updateInstruments(activo, id);
     }
 
     @RequestMapping("/disabled/{id}")
