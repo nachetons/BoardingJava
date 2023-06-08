@@ -5,8 +5,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <style>
-body {
+  <style>
+      body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -77,11 +77,34 @@ body {
         text-align: center;
         margin-bottom: 10px;
       }
+
+        #dialog {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 600px;
+          height: 400px;
+          background-color: white;
+          padding: 20px;
+          border: 1px solid black;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          opacity: 1;
+          transition: opacity 0.3s ease-in-out;
+        }
+
+        #dialog.close {
+          opacity: 0;
+        }
     </style>
   </head>
 
   <body>
     <h1>Instrumentos</h1>
+
+    <div id="dialog" class="close">
+      <jsp:include page="dialog.jsp" />
+    </div>
 
     <div class="userContent">
       <input type="text" placeholder="nombre usuario" name="checkUser" />
@@ -92,10 +115,11 @@ body {
       <button><a href="new" class="disabled-link">Nuevo</a></button>
       <br />
       <div class="filterContent">
-          <input type="text" name="search" placeholder="Buscar" />
-          <input type="submit" value="Buscar" />
+        <input type="text" name="search" placeholder="Buscar" />
+        <input type="submit" value="Buscar" />
       </div>
     </div>
+
     <table>
       <thead>
         <tr>
@@ -110,35 +134,42 @@ body {
       </thead>
       <tbody>
         <c:forEach items="${list}" var="item">
-          <tr>
+          <tr class="instrumento" ondblclick="openDialog()">
             <td>${item.nombre}</td>
             <td>${item.mercado}</td>
-            <td>${item.descripccion}</td>
-            <td>${item.activo}</td>
+            <td>${item.descripcion}</td>
             <td>${item.tickerbloomberg}</td>
+            <td>${item.activo}</td>
             <td>${item.lastUpdate}</td>
             <td>
-              <a href="edit/${item.id}" class="disabled-link">Editar</a>
-              <a href="delete/${item.id}" class="disabled-link">Eliminar</a>
+              <a href="edit/${item.id}" class="disabled-link" onclick="event.stopPropagation()">Editar</a>
+              <a href="delete/${item.id}" class="disabled-link" onclick="event.stopPropagation()">Eliminar</a>
             </td>
           </tr>
         </c:forEach>
         <div class="auth-message">
-            <p id="autenticar"></p>
-          </div>
-
+          <p id="autenticar"></p>
+        </div>
 
         <script>
+          var auth = sessionStorage.getItem("auth");
+          var autenticar = document.getElementById("autenticar");
+          var dialog = document.getElementById("dialog");
 
-var auth = sessionStorage.getItem("auth");
-var autenticar = document.getElementById("autenticar");
+          if (auth === "true") {
+            autenticar.innerHTML =
+              "<p>El usuario está autenticado y tiene el rol admin.</p>";
+                function openDialog() {
+                  dialog.classList.remove("close");
+                }
 
-if (auth === "true") {
-    autenticar.innerHTML = "<p>El usuario está autenticado y tiene el rol admin.</p>";
-} else {
-    autenticar.innerHTML = "<p>El usuario no está autenticado o no tiene el rol admin.</p>";
-}
-
+                function closeDialog() {
+                  dialog.classList.add("close");
+                }
+          } else {
+            autenticar.innerHTML =
+              "<p>El usuario no está autenticado o no tiene el rol admin.</p>";
+          }
 
           function submitForm(event) {
             event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
@@ -158,7 +189,7 @@ if (auth === "true") {
               ) {
                 var auth = JSON.parse(xhr.responseText).auth;
                 sessionStorage.setItem("auth", auth.toString());
-                window.location.reload(); // Recargar la página para mostrar el resultado actualizado
+                window.location.reload();
               }
             };
             xhr.send();
@@ -167,6 +198,7 @@ if (auth === "true") {
           document.addEventListener("DOMContentLoaded", function () {
             // Obtener el valor de auth del sessionStorage
             var auth = sessionStorage.getItem("auth");
+            var filas = document.querySelectorAll(".instrumento");
 
             // Obtener todos los botones de la página
             var buttons = document.getElementsByTagName("button");
@@ -190,6 +222,7 @@ if (auth === "true") {
               }
             }
           });
+
         </script>
       </tbody>
     </table>

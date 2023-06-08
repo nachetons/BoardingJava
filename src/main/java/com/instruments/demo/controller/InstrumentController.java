@@ -1,19 +1,17 @@
 package com.instruments.demo.controller;
 
 import com.instruments.demo.dao.Activos;
-import com.instruments.demo.dao.Instrument;
 import com.instruments.demo.service.InstrumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class InstrumentController {
@@ -25,7 +23,7 @@ public class InstrumentController {
 
 
     @RequestMapping("/")
-    public ModelAndView getInstruments() {
+    public ModelAndView getInstrumentID() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         List<Activos> instrument = instrumentService.getAllInstruments();
@@ -35,7 +33,7 @@ public class InstrumentController {
     }
 
     @RequestMapping("/create")
-    public ModelAndView  addInstruments() {
+    public ModelAndView addInstruments() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("create");
         System.out.println("Pepe");
@@ -44,7 +42,7 @@ public class InstrumentController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView getInstruments(@PathVariable int id) {
+    public ModelAndView getInstrumentID(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("edit");
         List<Activos> instrument = instrumentService.getInstrumentsById(id);
@@ -55,12 +53,22 @@ public class InstrumentController {
 
 
     @PutMapping("/update/{id}")
-    public int editInstruments(@RequestBody Activos activo, @PathVariable int id) {
-        return instrumentService.updateInstruments(activo, id);
+    public ResponseEntity editInstruments(@RequestBody Activos activo, @PathVariable int id) {
+
+        try{
+            if (instrumentService.updateInstruments(activo, id)==0){
+                return new ResponseEntity<>("Balance has been changed successfully", HttpStatus.ACCEPTED);
+            }
+            return new ResponseEntity<>("can't change the balance",HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            logger.error(e.getCause().getMessage());
+            return new ResponseEntity<>("can't change the balance",HttpStatus.BAD_REQUEST);
+        }
     }
 
+
     @RequestMapping("/disabled/{id}")
-    public ModelAndView  disabledInstruments(@RequestParam int id) {
+    public ModelAndView disabledInstruments(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         modelAndView.addObject("id", id);
@@ -69,7 +77,7 @@ public class InstrumentController {
     }
 
     @RequestMapping("/remove/{id}")
-    public ModelAndView  deleteInstruments(@RequestParam int id) {
+    public ModelAndView deleteInstruments(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         modelAndView.addObject("id", id);

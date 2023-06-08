@@ -14,13 +14,17 @@
 
         <body>
             <h1>Esto es una prueba y estas pasando el id ${id}</h1>
-                <c:forEach items="${list}" var="item">
+            <c:forEach items="${list}" var="item">
                 <form>
 
                     <div class="content">
                         <div class="element">
                             <label for="">Id</label>
                             <input name="idInstrumento" value="${item.id}">
+                        </div>
+                        <div class="element">
+                            <label for="">Codigo</label>
+                            <input name="codigoInstrumento" value="${item.code}">
                         </div>
                         <div class="element">
                             <label for="">Nombre</label>
@@ -33,7 +37,7 @@
                         <div class="element">
 
                             <label for="">Descripccion</label>
-                            <input name="descripcionInstrumento" value="${item.descripccion}">
+                            <input name="descripcionInstrumento" value="${item.descripcion}">
                         </div>
                         <div class="element">
                             <label for="">Activo</label>
@@ -49,11 +53,9 @@
                         <div class="element">
                             <input type="submit" value="Guardar" onclick="submitForm(event)">
                         </div>
-                    </form>
+                </form>
 
-                </c:forEach>
-
-
+            </c:forEach>
 
             <script>
                 var auth = sessionStorage.getItem("auth");
@@ -67,48 +69,50 @@
                     window.location.href = "../";
                 }
                 function submitForm(event) {
-            event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
+                    event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
 
-            var nombre = document.getElementsByName("nombreInstrumento")[0].value;
-            var mercado = document.getElementsByName("mercadoInstrumento")[0].value;
-            var descripcion = document.getElementsByName("descripcionInstrumento")[0].value;
-            var activo = document.getElementsByName("activoInstrumento")[0].value;
-            var tickerBloomberg = document.getElementsByName("tickerBloombergInstrumento")[0].value;
+                    var codigo = document.getElementsByName("codigoInstrumento")[0].value;
+                    var nombre = document.getElementsByName("nombreInstrumento")[0].value;
+                    var mercado = document.getElementsByName("mercadoInstrumento")[0].value;
+                    var descripcion = document.getElementsByName("descripcionInstrumento")[0].value;
+                    var activo = document.getElementsByName("activoInstrumento")[0].value;
+                    var tickerBloomberg = document.getElementsByName("tickerBloombergInstrumento")[0].value;
 
-            var data = {
-                "nombre": nombre,
-                "mercado": mercado,
-                "descripcion": descripcion,
-                "activo": activo,
-                "tickerBloomberg": tickerBloomberg
-            };
+                    var data = {
+                        "code": codigo,
+                        "nombre": nombre,
+                        "mercado": mercado,
+                        "descripcion": descripcion,
+                        "tickerbloomberg": tickerBloomberg,
+                        "activo": activo
+                    };
 
-            console.log(data);
+                    console.log(data);
 
-            var id = document.getElementsByName("idInstrumento")[0].value;
-            var url = "/demo-0.0.1-SNAPSHOT/update/" + id + "/";
+                    var id = document.getElementsByName("idInstrumento")[0].value;
+                    var url = "/demo-0.0.1-SNAPSHOT/update/" + id + "/";
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("PUT", url, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify(data));
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("PUT", url, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(data));
 
-            xhr.onreadystatechange = function() {
+                    xhr.onreadystatechange = function () {
 
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var json = JSON.parse(xhr.responseText);
-                    console.log(json);
-                    if (json.status === "OK") {
-                        alert("Instrumento actualizado correctamente");
-                        window.location.href = "../";
-                    } else {
-                        alert("Error al actualizar el instrumento");
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var json = JSON.parse(xhr.responseText);
+                            console.log(json);
+                            if (json.status === "OK") {
+                                alert("Instrumento actualizado correctamente");
+                                window.location.href = "../";
+                            } else {
+                                alert("Error al actualizar el instrumento");
+                            }
+
+
+                        }
                     }
-
-
                 }
-            }
-        }
 
 
             </script>
