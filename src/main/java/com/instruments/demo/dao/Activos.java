@@ -7,7 +7,7 @@ public class Activos {
     private String code;
     private String nombre;
     private String mercado;
-    private String descripccion;
+    private String descripcion;
     private String tickerbloomberg;
     private int activo;
     private Date lastUpdate;
@@ -15,12 +15,12 @@ public class Activos {
     public Activos() {
     }
 
-    public Activos(int id, String code, String nombre, String mercado, String descripccion, String tickerbloomberg, int activo, Date lastUpdate) {
+    public Activos(int id, String code, String nombre, String mercado, String descripcion, String tickerbloomberg, int activo, Date lastUpdate) {
         this.id = id;
         this.code = code;
         this.nombre = nombre;
         this.mercado = mercado;
-        this.descripccion = descripccion;
+        this.descripcion = descripcion;
         this.tickerbloomberg = tickerbloomberg;
         this.activo = activo;
         this.lastUpdate = lastUpdate;
@@ -51,12 +51,12 @@ public class Activos {
         this.mercado = mercado;
     }
 
-    public String getDescripccion() {
-        return descripccion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripccion(String descripccion) {
-        this.descripccion = descripccion;
+    public void setDescripcion(String descripccion) {
+        this.descripcion = descripccion;
     }
 
     public String getTickerbloomberg() {
@@ -89,7 +89,7 @@ public class Activos {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", mercado='" + mercado + '\'' +
-                ", descripccion='" + descripccion + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", tickerbloomberg='" + tickerbloomberg + '\'' +
                 ", activo=" + activo +
                 ", lastUpdate=" + lastUpdate +

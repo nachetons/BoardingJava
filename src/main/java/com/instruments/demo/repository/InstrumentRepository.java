@@ -35,17 +35,17 @@ public class InstrumentRepository {
     }
 
     public int updateInstruments(Activos activos, int id) {
+        String sql = "UPDATE ACTIVOS SET code = ?, nombre = ?, mercado = ?, descripcion = ?, tickerbloomberg = ?, activo = ?  WHERE id = ?";
+
         return jdbcTemplate.update(
+                sql,
                 activos.getCode(),
                 activos.getNombre(),
                 activos.getMercado(),
-                activos.getDescripccion(),
+                activos.getDescripcion(),
                 activos.getTickerbloomberg(),
                 activos.getActivo(),
-                activos.getLastUpdate(),
                 id
-
         );
-
     }
 }
