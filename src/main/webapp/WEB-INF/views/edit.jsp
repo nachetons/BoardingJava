@@ -6,21 +6,70 @@
 
         <head>
             <style>
-                .element {
-                    margin: 20px;
+           
+                body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+        }
+
+        .element {
+            margin-bottom: 15px;
+        }
+
+        .element label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .element input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .element input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .element input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #dialog.close {
+                  opacity: 0;
                 }
             </style>
         </head>
 
         <body>
-            <h1>Esto es una prueba y estas pasando el id ${id}</h1>
             <c:forEach items="${list}" var="item">
+                <h1>Editar Instrumento </h1>
+                <div id="dialog" class="close">
+                    <jsp:include page="message.jsp" />
+                  </div>
                 <form>
 
                     <div class="content">
                         <div class="element">
                             <label for="">Id</label>
-                            <input name="idInstrumento" value="${item.id}">
+                            <input name="idInstrumento" value="${item.id}"disabled>
                         </div>
                         <div class="element">
                             <label for="">Codigo</label>
@@ -59,7 +108,14 @@
 
             <script>
                 var auth = sessionStorage.getItem("auth");
+                var dialog = document.getElementById("dialog");
+                function openDialog() {
+                  dialog.classList.remove("close");
+                }
 
+                function closeDialog() {
+                  dialog.classList.add("close");
+                }
                 if (auth === "true") {
 
 
@@ -103,6 +159,7 @@
                             var json = JSON.parse(xhr.responseText);
                             console.log(json);
                             if (json.status === "OK") {
+                            openDialog()
                                 alert("Instrumento actualizado correctamente");
                                 window.location.href = "../";
                             } else {
