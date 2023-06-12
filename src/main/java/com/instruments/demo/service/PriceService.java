@@ -17,4 +17,7 @@ public class PriceService {
         return priceRepository.getAllPrices();
     }
 
+    public List<Precios> getAllPricesById(int id) {
+        return priceRepository.getAllPricesById(id);
+    }
 }

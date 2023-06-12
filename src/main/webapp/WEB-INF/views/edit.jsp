@@ -5,22 +5,21 @@
         <html lang="en">
 
         <head>
-            <style>
-                .element {
-                    margin: 20px;
-                }
-            </style>
-        </head>
+            <link href="<c:url value="/resources/styles/edit.css" />" rel="stylesheet">
+          </head>
 
         <body>
-            <h1>Esto es una prueba y estas pasando el id ${id}</h1>
             <c:forEach items="${list}" var="item">
+                <h1>Editar Instrumento </h1>
+                <div id="alertDialog" class="close">
+                    <jsp:include page="message.jsp" />
+                </div>
                 <form>
 
                     <div class="content">
                         <div class="element">
                             <label for="">Id</label>
-                            <input name="idInstrumento" value="${item.id}">
+                            <input name="idInstrumento" value="${item.id}" disabled>
                         </div>
                         <div class="element">
                             <label for="">Codigo</label>
@@ -59,7 +58,18 @@
 
             <script>
                 var auth = sessionStorage.getItem("auth");
+                var dialog = document.getElementById("alertDialog");
+                function openDialog() {
+                    dialog.classList.remove("close");
+                    setTimeout(closeDialog, 1000);
 
+                }
+
+                function closeDialog() {
+                    dialog.classList.add("close");
+                    window.location.href = "../";
+
+                }
                 if (auth === "true") {
 
 
@@ -97,21 +107,10 @@
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify(data));
 
-                    xhr.onreadystatechange = function () {
-
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var json = JSON.parse(xhr.responseText);
-                            console.log(json);
-                            if (json.status === "OK") {
-                                alert("Instrumento actualizado correctamente");
-                                window.location.href = "../";
-                            } else {
-                                alert("Error al actualizar el instrumento");
-                            }
+                    openDialog(); // Mostrar el diálogo en caso de éxito
 
 
-                        }
-                    }
+
                 }
 
 

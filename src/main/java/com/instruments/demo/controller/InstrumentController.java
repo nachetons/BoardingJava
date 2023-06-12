@@ -53,13 +53,12 @@ public class InstrumentController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity editInstruments(@RequestBody Activos activo, @PathVariable int id) {
+    public ResponseEntity<String> editInstruments(@RequestBody Activos activo, @PathVariable int id) {
 
         try{
-            if (instrumentService.updateInstruments(activo, id)==0){
+                instrumentService.updateInstruments(activo, id);
                 return new ResponseEntity<>("Balance has been changed successfully", HttpStatus.ACCEPTED);
-            }
-            return new ResponseEntity<>("can't change the balance",HttpStatus.BAD_REQUEST);
+
         }catch (Exception e){
             logger.error(e.getCause().getMessage());
             return new ResponseEntity<>("can't change the balance",HttpStatus.BAD_REQUEST);

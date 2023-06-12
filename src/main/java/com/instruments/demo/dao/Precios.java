@@ -6,7 +6,6 @@ public class Precios {
 
     private int id;
     private double precio;
-    private String nombre;
     private Date lastUpdate;
 
     public Precios() {
@@ -28,13 +27,7 @@ public class Precios {
         this.precio = precio;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+   
 
     public Date getLastUpdate() {
         return lastUpdate;
@@ -49,7 +42,6 @@ public class Precios {
         return "Precios{" +
                 "id=" + id +
                 ", precio=" + precio +
-                ", nombre='" + nombre + '\'' +
                 ", lastUpdate=" + lastUpdate +
                 '}';
     }
