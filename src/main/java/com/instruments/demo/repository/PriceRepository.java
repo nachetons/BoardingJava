@@ -23,4 +23,12 @@ public class PriceRepository {
         );
 
     }
+
+    public List<Precios> getAllPricesById(int id) {
+        String sql = "SELECT * FROM PRECIOS WHERE ACTIVO_ID = ?";
+
+        return jdbcTemplate.query(
+                sql, new BeanPropertyRowMapper<>(Precios.class), id
+        );
+    }
 }

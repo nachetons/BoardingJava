@@ -5,71 +5,21 @@
         <html lang="en">
 
         <head>
-            <style>
-           
-                body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f5f5f5;
-        }
-
-        .element {
-            margin-bottom: 15px;
-        }
-
-        .element label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .element input {
-            width: 100%;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .element input[type="submit"] {
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .element input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        #dialog.close {
-                  opacity: 0;
-                }
-            </style>
-        </head>
+            <link href="<c:url value="/resources/styles/edit.css" />" rel="stylesheet">
+          </head>
 
         <body>
             <c:forEach items="${list}" var="item">
                 <h1>Editar Instrumento </h1>
-                <div id="dialog" class="close">
+                <div id="alertDialog" class="close">
                     <jsp:include page="message.jsp" />
-                  </div>
+                </div>
                 <form>
 
                     <div class="content">
                         <div class="element">
                             <label for="">Id</label>
-                            <input name="idInstrumento" value="${item.id}"disabled>
+                            <input name="idInstrumento" value="${item.id}" disabled>
                         </div>
                         <div class="element">
                             <label for="">Codigo</label>
@@ -108,13 +58,17 @@
 
             <script>
                 var auth = sessionStorage.getItem("auth");
-                var dialog = document.getElementById("dialog");
+                var dialog = document.getElementById("alertDialog");
                 function openDialog() {
-                  dialog.classList.remove("close");
+                    dialog.classList.remove("close");
+                    setTimeout(closeDialog, 1000);
+
                 }
 
                 function closeDialog() {
-                  dialog.classList.add("close");
+                    dialog.classList.add("close");
+                    window.location.href = "../";
+
                 }
                 if (auth === "true") {
 
@@ -153,22 +107,10 @@
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.send(JSON.stringify(data));
 
-                    xhr.onreadystatechange = function () {
-
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var json = JSON.parse(xhr.responseText);
-                            console.log(json);
-                            if (json.status === "OK") {
-                            openDialog()
-                                alert("Instrumento actualizado correctamente");
-                                window.location.href = "../";
-                            } else {
-                                alert("Error al actualizar el instrumento");
-                            }
+                    openDialog(); // Mostrar el diálogo en caso de éxito
 
 
-                        }
-                    }
+
                 }
 
 
