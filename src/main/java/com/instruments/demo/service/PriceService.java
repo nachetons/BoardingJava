@@ -20,4 +20,9 @@ public class PriceService {
     public List<Precios> getAllPricesById(int id) {
         return priceRepository.getAllPricesById(id);
     }
+
+    public void updatePrecio(Precios precio, int id) {
+        priceRepository.updatePrecio(precio, id);
+
+    }
 }

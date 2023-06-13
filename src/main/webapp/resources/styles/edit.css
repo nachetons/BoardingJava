@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: var(--color-quaternary);
 }
 
 h1 {
@@ -14,8 +15,24 @@ form {
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    background-color: #f5f5f5;
+    background-color: var(--color-tertiary);
 }
+
+select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+option{
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+}
+
+
+
 
 .element {
     margin-bottom: 15px;
@@ -46,3 +63,26 @@ form {
 #alertDialog.close {
     opacity: 0;
 }
+
+
+body {
+    --color-primary: #495464;
+
+    --color-secondary: #BBBFCA;
+  
+    --light-grey: #F6F1F1;
+  
+    --color-tertiary: #E8E8E8;
+  
+    --color-quaternary: #F4F4F2;
+  
+    --papaya2: #f15e5e;
+  
+    --white: #ffffffff;
+  
+    --black:#000000;
+  
+    --dark-grey:#A9A7A7;
+  
+    --green:#69a869;
+  }

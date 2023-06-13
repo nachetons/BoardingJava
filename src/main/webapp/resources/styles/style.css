@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: var(--color-quaternary);
 }
 
 table {
@@ -9,7 +10,8 @@ table {
   width: 100%;
 }
 
-th,
+
+
 td {
   padding: 8px;
   text-align: center;
@@ -17,13 +19,25 @@ td {
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: var(--color-primary);
+  padding: 8px;
+  color: #eeeeee;
 }
 
-tr:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
+tr{
 }
+
+.instrumento:hover {
+  cursor: pointer;
+  background-color: var(--color-tertiary);
+  -webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+
 
 h1 {
   color: #333;
@@ -45,7 +59,7 @@ h1 {
   align-items: center;
   padding: 10px 20px;
   margin-bottom: 2%;
-  background-color: #f2f2f2;
+  background-color: var(--color-quaternary);
 }
 
 .filterContent input[type="text"],
@@ -70,6 +84,35 @@ a {
   text-align: center;
   margin-bottom: 10px;
 }
+.editBtn{
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--green);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.deleteBtn{
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--papaya2);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.mainTitle{
+    border: #000000 1px solid;
+    padding: 5px 10px;
+    background-color: var(--color-secondary);
+    color: var(--black);
+    text-align: center;
+    border-right: none;
+    border-left: none;
+    
+
+}
 
 #dialog {
   position: fixed;
@@ -83,9 +126,44 @@ a {
   border: 1px solid black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   opacity: 1;
+  z-index: 1; /* Establecer un valor inicial positivo */
+
   transition: opacity 0.3s ease-in-out;
 }
 
 #dialog.close {
   opacity: 0;
+  z-index: -100;
+  transition: opacity 1s ease-in-out, z-index 0s;
+
+
 }
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+body {
+  --color-primary: #495464;
+
+  --color-secondary: #BBBFCA;
+
+  --light-grey: #F6F1F1;
+
+  --color-tertiary: #E8E8E8;
+
+  --color-quaternary: #F4F4F2;
+
+  --papaya2: #f15e5e;
+
+  --white: #ffffffff;
+
+  --black:#000000;
+
+  --dark-grey:#A9A7A7;
+
+  --green:#69a869;
+}
+

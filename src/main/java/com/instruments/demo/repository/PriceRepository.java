@@ -31,4 +31,14 @@ public class PriceRepository {
                 sql, new BeanPropertyRowMapper<>(Precios.class), id
         );
     }
+
+    public void updatePrecio(Precios precio, int id) {
+        String sql = "UPDATE PRECIOS SET lastUpdate = NOW(), precio = ? WHERE id = ?";
+
+        jdbcTemplate.update(
+                sql,
+                precio.getPrecio(),
+                id
+        );
+    }
 }

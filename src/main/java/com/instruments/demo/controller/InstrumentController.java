@@ -65,6 +65,18 @@ public class InstrumentController {
         }
     }
 
+    @PostMapping("/save")
+    public ResponseEntity<String> saveInstruments(@RequestBody Activos activo) {
+        try{
+            instrumentService.saveInstruments(activo);
+            return new ResponseEntity<>("Instrument has been saved successfully", HttpStatus.ACCEPTED);
+
+        }catch (Exception e){
+            logger.error(e.getCause().getMessage());
+            return new ResponseEntity<>("can't save the instrument",HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
     @RequestMapping("/disabled/{id}")
     public ModelAndView disabledInstruments(@RequestParam int id) {

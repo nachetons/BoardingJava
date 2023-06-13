@@ -9,7 +9,7 @@
     </head>
 
     <body>
-      <h1>Instrumentos</h1>
+      <h1 class="mainTitle">Instrumentos</h1>
 
       <div id="dialog" class="close">
         <jsp:include page="dialog.jsp" />
@@ -21,7 +21,7 @@
       </div>
 
       <div class="headerContent">
-        <button><a href="new" class="disabled-link">Nuevo</a></button>
+        <button><a href="create" class="disabled-link">Nuevo</a></button>
         <br />
         <div class="filterContent">
           <input type="text" name="search" placeholder="Buscar" />
@@ -32,6 +32,7 @@
       <table>
         <thead>
           <tr>
+            <th>Código</th>
             <th>Nombre</th>
             <th>Mercado</th>
             <th>Descripción</th>
@@ -43,16 +44,17 @@
         </thead>
         <tbody>
           <c:forEach items="${list}" var="item">
-            <tr class="instrumento" ondblclick="openDialog('${item.id}')">
-              <td>${item.nombre}</td>
-              <td>${item.mercado}</td>
-              <td>${item.descripcion}</td>
-              <td>${item.tickerbloomberg}</td>
-              <td>${item.activo}</td>
-              <td>${item.lastUpdate}</td>
+            <tr class="instrumento" id="filas" ondblclick="openDialog('${item.id}','${item.activo}')">
+              <td class="cell">${item.code}</td>
+              <td class="cell">${item.nombre}</td>
+              <td class="cell">${item.mercado}</td>
+              <td class="cell">${item.descripcion}</td>
+              <td class="cell">${item.tickerbloomberg}</td>
+              <td class="cell">${item.activo}</td>
+              <td class="cell">${item.lastUpdate}</td>
               <td>
-                <a href="edit/${item.id}" class="disabled-link" onclick="event.stopPropagation()">Editar</a>
-                <a href="delete/${item.id}" class="disabled-link" onclick="event.stopPropagation()">Eliminar</a>
+                <a href="edit/${item.id}" class="disabled-link editBtn cell" onclick="event.stopPropagation()">Editar</a>
+                <a href="delete/${item.id}" class="disabled-link deleteBtn cell" onclick="event.stopPropagation()">Eliminar</a>
               </td>
             </tr>
           </c:forEach>

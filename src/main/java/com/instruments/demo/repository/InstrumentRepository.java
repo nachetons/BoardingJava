@@ -48,4 +48,17 @@ public class InstrumentRepository {
                 id
         );
     }
+
+    public void saveInstruments(Activos activo) {
+        String sql = "INSERT INTO ACTIVOS (code, nombre, mercado, descripcion, tickerbloomberg, activo, lastUpdate) VALUES (?, ?, ?, ?, ?, 1, NOW())";
+
+        jdbcTemplate.update(
+                sql,
+                activo.getCode(),
+                activo.getNombre(),
+                activo.getMercado(),
+                activo.getDescripcion(),
+                activo.getTickerbloomberg()
+        );
+    }
 }

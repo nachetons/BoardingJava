@@ -18,5 +18,9 @@ public class InstrumentService {
     }
     public List<Activos> getInstrumentsById(int id) {return instrumentRepository.getInstrumentsById(id); }
 
-    public int updateInstruments(Activos activo, int id) { return instrumentRepository.updateInstruments(activo, id); }
+    public void updateInstruments(Activos activo, int id) {
+        instrumentRepository.updateInstruments(activo, id);
+    }
+
+    public void saveInstruments(Activos activo) { instrumentRepository.saveInstruments(activo); }
 }
